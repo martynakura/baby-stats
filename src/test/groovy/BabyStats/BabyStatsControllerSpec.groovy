@@ -16,12 +16,11 @@ class BabyStatsControllerSpec extends Specification {
 
         // TODO: Populate valid properties like...
         //params["name"] = 'someValidName'
-        params["height"] = 62
-        params["weight"] = 6.2
-        params["headCircuit"] = 36
-        params["stomachCircuit"] = 36
-        params["notes"] = "Test"
-        params["statsDate"] = new Date(3017, 10, 28)
+        params["babyHeight"] = 62
+        params["babyWeightInGrams"] = 6200
+        params["babyHeadCircuit"] = 36
+        params["babyStomachCircuit"] = 36
+        params["babyStatsDate"] = new Date(3017, 10, 28)
         //assert false, "TODO: Provide a populateValidParams() implementation for this generated test suite"
     }
 
