@@ -6,7 +6,6 @@ class BabyStats {
     Double weight
     Integer headCircuit
     Integer stomachCircuit
-    String notes
     Date statsDate
 
     static constraints = {
@@ -14,7 +13,6 @@ class BabyStats {
         weight()
         headCircuit()
         stomachCircuit()
-        notes()
         statsDate()
     }
 }
