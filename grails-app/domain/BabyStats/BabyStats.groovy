@@ -2,17 +2,17 @@ package BabyStats
 
 class BabyStats {
 
-    Integer height
-    Double weight
-    Integer headCircuit
-    Integer stomachCircuit
-    Date statsDate
+    Integer babyHeight
+    Integer babyWeightInGrams
+    Integer babyHeadCircuit
+    Integer babyStomachCircuit
+    Date babyStatsDate
 
     static constraints = {
-        height()
-        weight()
-        headCircuit()
-        stomachCircuit()
-        statsDate()
+        babyHeight()
+        babyWeightInGrams()
+        babyHeadCircuit()
+        babyStomachCircuit()
+        babyStatsDate()
     }
 }
