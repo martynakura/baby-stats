@@ -1,1 +1,1 @@
-web: java -Dserver.port=$PORT $JAVA_OPTS -jar build/libs/BabyStats-0.1.jar
+web: java -Dserver.port=${PORT:-8080} $JAVA_OPTS -jar build/libs/BabyStats*.jar
