@@ -10,7 +10,7 @@ class BabyStatsController {
 
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
-        respond BabyStats.list(params), model: [babyStatsCount: BabyStats.count()]
+        respond BabyStats.list(params), model:[babyStatsCount: BabyStats.count()]
     }
 
     def show(BabyStats babyStats) {
@@ -60,7 +60,7 @@ class BabyStatsController {
 
         if (babyStats.hasErrors()) {
             transactionStatus.setRollbackOnly()
-            respond babyStats.errors, view: 'edit'
+            respond babyStats.errors, view:'edit'
             return
         }
 
@@ -71,26 +71,27 @@ class BabyStatsController {
                 flash.message = message(code: 'default.updated.message', args: [message(code: 'babyStats.label', default: 'Baby Stats'), babyStats.id])
                 redirect babyStats
             }
-            '*' {respond babyStats, [status: OK]}
+            '*'{ respond babyStats, [status: OK] }
         }
     }
 
     @Transactional
     def delete(BabyStats babyStats) {
+
         if (babyStats == null) {
             transactionStatus.setRollbackOnly()
             notFound()
             return
         }
 
-        babyStats.delete flush: true
+        babyStats.delete flush:true
 
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.deleted.message', args: [message(code: 'babyStats.label', default: 'Baby Stats'), babyStats.id])
-                redirect action: "index", method: "GET"
+                redirect action:"index", method:"GET"
             }
-            '*' {render status: NO_CONTENT}
+            '*'{ render status: NO_CONTENT }
         }
     }
 
@@ -100,7 +101,7 @@ class BabyStatsController {
                 flash.message = message(code: 'default.not.found.message', args: [message(code: 'babyStats.label', default: 'Baby Stats'), params.id])
                 redirect action: "index", method: "GET"
             }
-            '*'{render status: NOT_FOUND}
+            '*'{ render status: NOT_FOUND }
         }
     }
 }
