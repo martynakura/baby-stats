@@ -3,21 +3,19 @@ package BabyStats
 import grails.test.mixin.*
 import spock.lang.*
 
-@TestFor(BabyStatsController)
-@Mock(BabyStats)
-class BabyStatsControllerSpec extends Specification {
+@TestFor(BabyController)
+@Mock(Baby)
+class BabyControllerSpec extends Specification {
 
     def populateValidParams(params) {
         assert params != null
 
         // TODO: Populate valid properties like...
         //params["name"] = 'someValidName'
-        params["babyHeight"] = 62
-        params["babyWeightInGrams"] = 6500
-        params["babyHeadCircuit"] = 38
-        params["babyStomachCircuit"] = 38
-        params["babyStatsDate"] = new Date(3017, 10, 30)
-        params["baby"] = new Baby()
+        params["name"] = "Bartosz"
+        params["surname"] = "Kura"
+        params["birthDate"] = new Date(3017, 7, 28)
+        //assert false, "TODO: Provide a populateValidParams() implementation for this generated test suite"
     }
 
     void "Test the index action returns the correct model"() {
@@ -26,8 +24,8 @@ class BabyStatsControllerSpec extends Specification {
             controller.index()
 
         then:"The model is correct"
-            !model.babyStatsList
-            model.babyStatsCount == 0
+            !model.babyList
+            model.babyCount == 0
     }
 
     void "Test the create action returns the correct model"() {
@@ -35,7 +33,7 @@ class BabyStatsControllerSpec extends Specification {
             controller.create()
 
         then:"The model is correctly created"
-            model.babyStats!= null
+            model.baby!= null
     }
 
     void "Test the save action correctly persists an instance"() {
@@ -43,25 +41,25 @@ class BabyStatsControllerSpec extends Specification {
         when:"The save action is executed with an invalid instance"
             request.contentType = FORM_CONTENT_TYPE
             request.method = 'POST'
-            def babyStats = new BabyStats()
-            babyStats.validate()
-            controller.save(babyStats)
+            def baby = new Baby()
+            baby.validate()
+            controller.save(baby)
 
         then:"The create view is rendered again with the correct model"
-            model.babyStats!= null
+            model.baby!= null
             view == 'create'
 
         when:"The save action is executed with a valid instance"
             response.reset()
             populateValidParams(params)
-            babyStats = new BabyStats(params)
+            baby = new Baby(params)
 
-            controller.save(babyStats)
+            controller.save(baby)
 
         then:"A redirect is issued to the show action"
-            response.redirectedUrl == '/babyStats/show/1'
+            response.redirectedUrl == '/baby/show/1'
             controller.flash.message != null
-            BabyStats.count() == 1
+            Baby.count() == 1
     }
 
     void "Test that the show action returns the correct model"() {
@@ -73,11 +71,11 @@ class BabyStatsControllerSpec extends Specification {
 
         when:"A domain instance is passed to the show action"
             populateValidParams(params)
-            def babyStats = new BabyStats(params)
-            controller.show(babyStats)
+            def baby = new Baby(params)
+            controller.show(baby)
 
         then:"A model is populated containing the domain instance"
-            model.babyStats == babyStats
+            model.baby == baby
     }
 
     void "Test that the edit action returns the correct model"() {
@@ -89,11 +87,11 @@ class BabyStatsControllerSpec extends Specification {
 
         when:"A domain instance is passed to the edit action"
             populateValidParams(params)
-            def babyStats = new BabyStats(params)
-            controller.edit(babyStats)
+            def baby = new Baby(params)
+            controller.edit(baby)
 
         then:"A model is populated containing the domain instance"
-            model.babyStats == babyStats
+            model.baby == baby
     }
 
     void "Test the update action performs an update on a valid domain instance"() {
@@ -103,28 +101,28 @@ class BabyStatsControllerSpec extends Specification {
             controller.update(null)
 
         then:"A 404 error is returned"
-            response.redirectedUrl == '/babyStats/index'
+            response.redirectedUrl == '/baby/index'
             flash.message != null
 
         when:"An invalid domain instance is passed to the update action"
             response.reset()
-            def babyStats = new BabyStats()
-            babyStats.validate()
-            controller.update(babyStats)
+            def baby = new Baby()
+            baby.validate()
+            controller.update(baby)
 
         then:"The edit view is rendered again with the invalid instance"
             view == 'edit'
-            model.babyStats == babyStats
+            model.baby == baby
 
         when:"A valid domain instance is passed to the update action"
             response.reset()
             populateValidParams(params)
-            babyStats = new BabyStats(params).save(flush: true)
-            controller.update(babyStats)
+            baby = new Baby(params).save(flush: true)
+            controller.update(baby)
 
         then:"A redirect is issued to the show action"
-            babyStats != null
-            response.redirectedUrl == "/babyStats/show/$babyStats.id"
+            baby != null
+            response.redirectedUrl == "/baby/show/$baby.id"
             flash.message != null
     }
 
@@ -135,23 +133,23 @@ class BabyStatsControllerSpec extends Specification {
             controller.delete(null)
 
         then:"A 404 is returned"
-            response.redirectedUrl == '/babyStats/index'
+            response.redirectedUrl == '/baby/index'
             flash.message != null
 
         when:"A domain instance is created"
             response.reset()
             populateValidParams(params)
-            def babyStats = new BabyStats(params).save(flush: true)
+            def baby = new Baby(params).save(flush: true)
 
         then:"It exists"
-            BabyStats.count() == 1
+            Baby.count() == 1
 
         when:"The domain instance is passed to the delete action"
-            controller.delete(babyStats)
+            controller.delete(baby)
 
         then:"The instance is deleted"
-            BabyStats.count() == 0
-            response.redirectedUrl == '/babyStats/index'
+            Baby.count() == 0
+            response.redirectedUrl == '/baby/index'
             flash.message != null
     }
 }

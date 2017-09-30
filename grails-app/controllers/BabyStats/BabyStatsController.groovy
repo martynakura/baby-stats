@@ -3,7 +3,7 @@ package BabyStats
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
 
-@Transactional
+@Transactional(readOnly = true)
 class BabyStatsController {
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
@@ -42,7 +42,7 @@ class BabyStatsController {
                 flash.message = message(code: 'default.created.message', args: [message(code: 'babyStats.label', default: 'Baby Stats'), babyStats.id])
                 redirect babyStats
             }
-            '*' {respond babyStats, [status: CREATED]}
+            '*' { respond babyStats, [status: CREATED] }
         }
     }
 

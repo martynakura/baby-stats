@@ -7,6 +7,7 @@ class BabyStats {
     Integer babyHeadCircuit
     Integer babyStomachCircuit
     Date babyStatsDate
+    Baby baby
 
     static constraints = {
         babyHeight()
@@ -14,5 +15,6 @@ class BabyStats {
         babyHeadCircuit()
         babyStomachCircuit()
         babyStatsDate()
+        baby()
     }
 }
